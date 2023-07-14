@@ -24,7 +24,8 @@ class PlaylistHandler {
 
   getAllSong(req, res) {
     try {
-      const songs = this.playlistService.getAllSong();
+      const { sort_by, order_by } = req.query;
+      const songs = this.playlistService.getAllSong(sort_by, order_by);
 
       res.status(200).json({
         status: "success",

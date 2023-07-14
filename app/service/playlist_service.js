@@ -7,7 +7,7 @@ class PlaylistService {
   }
 
   addSong(title, artist, url) {
-    const song = new Song(uuid.v4(), title, artist, url, false);
+    const song = new Song(uuid.v4(), title, artist, url, false, 0);
     this.playlistRepositories.addSong(song);
     return song;
   }
@@ -23,8 +23,8 @@ class PlaylistService {
     return this.playlistRepositories.getPlayingSong();
   }
 
-  getAllSong() {
-    return this.playlistRepositories.getAllSong();
+  getAllSong(sort_by, order_by) {
+    return this.playlistRepositories.getAllSong(sort_by, order_by);
   }
 }
 

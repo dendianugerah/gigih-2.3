@@ -1,4 +1,3 @@
-
 class PlaylistRepositories {
   constructor() {
     this.songs = [];
@@ -10,24 +9,26 @@ class PlaylistRepositories {
 
   playSong(song) {
     song.isPlaying = true;
+    song.isPlayingCount += 1;
   }
 
-  getAllSong() {
+  getAllSong(sort_by, order_by) {
+    if (sort_by === "play_count") {
+      this.songs.sort((a, b) => {
+        if (order_by === "desc") {
+          return b.isPlayingCount - a.isPlayingCount;
+        } else {
+          return a.isPlayingCount - b.isPlayingCount;
+        }
+      });
+    }
     return this.songs;
   }
 
   getPlayingSong() {
-    let left = 0;
-    let right = this.songs.length - 1;
-
-    while (left <= right) {
-      const mid = Math.floor((left + right) / 2);
-      if (this.songs[mid].isPlaying) {
-        return this.songs[mid];
-      } else if (this.songs[mid].isPlaying === false) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
+    for (let i = 0; i < this.songs.length; i++) {
+      if (this.songs[i].isPlaying) {
+        return this.songs[i];
       }
     }
 
